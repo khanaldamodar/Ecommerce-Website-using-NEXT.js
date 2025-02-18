@@ -3,23 +3,34 @@ import { wharehouses } from "@/lib/db/schema";
 import { wharehouseSchema } from "@/lib/validators/wharehouseSchema";
 import { NextResponse } from "next/server";
 
-export  async function POST(req) {
-    const requestData = await req.json()
+export async function POST(req) {
+  const requestData = await req.json();
 
-    let validatedData;
+  let validatedData;
 
+  try {
+    validatedData = await wharehouseSchema.parse(requestData);
+  } catch (error) {
+    return NextResponse.json({ message: error }, { status: 500 });
+  }
+  try {
+    await db.insert(wharehouses).values(validatedData);
+    return NextResponse.json({ message: "OK" }, { status: 200 });
+  } catch (error) {
+    return NextResponse.json(
+      { message: "Failed to store Wharehouse" },
+      { status: 500 }
+    );
+  }
+}
+export async function GET() {
     try {
-        validatedData = await wharehouseSchema.parse(requestData)
+        const allWhareHouses = await db.select().from(wharehouses);
+        return NextResponse.json(allWhareHouses)
         
     } catch (error) {
-        return NextResponse.json({message: error}, {status: 500})
+        return NextResponse.json({message: "failed to fetch wharehouses"})
         
     }
-    try {
-        await db.insert(wharehouses).values(validatedData)
-        return NextResponse.json({message: "OK"}, {status: 200})
-    } catch (error) {
-        return NextResponse.json({message: "Failed to store Wharehouse"}, {status: 500})
-
-    }
+    
 }
