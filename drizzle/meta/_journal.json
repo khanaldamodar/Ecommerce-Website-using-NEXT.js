@@ -15,6 +15,20 @@
       "when": 1739858077835,
       "tag": "0001_complex_synch",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1739865152108,
+      "tag": "0002_careful_luminals",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1739865282773,
+      "tag": "0003_previous_namorita",
+      "breakpoints": true
     }
   ]
 }
