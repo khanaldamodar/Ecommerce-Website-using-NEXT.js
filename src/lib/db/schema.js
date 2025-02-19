@@ -66,7 +66,6 @@ export const dileveryPersons = pgTable("delivery_persons", {
 
 });
 
-
 export const inventories = pgTable("inventories", {
   id: serial("id").primaryKey(),
   sku: varchar("sku", {length:8}).unique().notNull(),
